@@ -44,23 +44,20 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
 footer a{color:var(--ink)}
 
 /* ---------- forside: toppen ---------- */
-.hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);min-height:min(100vh,1000px);min-height:min(100svh,1000px);padding-top:60px}
-.hero .tekst{align-self:end;padding:48px clamp(16px,4vw,56px) clamp(40px,8vh,88px) max(clamp(16px,4vw,48px),calc((100vw - 1080px)/2 + clamp(16px,4vw,48px)))}
-.hero .sted{font-size:14px;color:var(--muted);margin:0 0 10px}
-.hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(56px,8vw,112px);line-height:.95;margin:0 0 28px;letter-spacing:-.02em}
-.hero .lead{font-size:20px}
-.hero .videre{margin:28px 0 0;font-size:15px}
-.hero .videre a{color:var(--terra);font-weight:600}
-.hero figure{margin:0;position:relative;background:var(--sand-2)}
-.hero figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 72%}
-.hero.uten-bilde{grid-template-columns:1fr;min-height:auto}
-.hero.uten-bilde figure{display:none}
-.hero.uten-bilde .tekst{max-width:1080px;margin:0 auto;width:100%;padding-top:110px}
-@media (max-width:800px){
-  .hero{grid-template-columns:1fr;min-height:auto}
-  .hero figure{order:-1;height:72svh}
-  .hero .tekst{padding:32px clamp(16px,4vw,48px) 48px}
-}
+.nav:not(.solid) ul a{color:rgba(255,255,255,.8)}
+.nav:not(.solid) ul a:hover,.nav:not(.solid) ul a.on{color:#fff}
+.nav:not(.solid) ul a.on{border-bottom-color:#fff}
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;color:#fff;overflow:hidden;background:#2b2f3a}
+.hero .photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 72%}
+.hero .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,18,28,.35) 0%,rgba(15,18,28,0) 22%,rgba(15,18,28,0) 45%,rgba(15,18,28,.7) 100%)}
+.hero .tekst{position:relative;width:100%;padding-bottom:clamp(40px,8vh,88px)}
+.hero .sted{font-size:15px;margin:0 0 8px;opacity:.9}
+.hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(64px,12vw,168px);line-height:.9;margin:0;letter-spacing:-.02em}
+.hero .meta{display:flex;gap:clamp(20px,4vw,48px);flex-wrap:wrap;margin:28px 0 26px;font-size:15px;opacity:.95}
+.hero .meta b{display:block;font-family:var(--serif);font-size:26px;font-weight:600}
+.hero .videre{margin:0;font-size:16px}
+.hero .videre a{color:#fff;font-weight:600;text-underline-offset:3px}
+.hero.uten-bilde .photo{display:none}
 
 /* ---------- høydeprofil ---------- */
 .altchart{margin-top:36px}
