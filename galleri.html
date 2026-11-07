@@ -17,12 +17,20 @@
 .filmtekst b{color:var(--ink);font-family:var(--serif);font-size:20px;font-weight:600}
 
 .tabs{position:sticky;top:60px;z-index:50;background:rgba(251,248,243,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.tabs .wrap{display:flex;gap:22px;overflow-x:auto;padding-top:0;padding-bottom:0;scrollbar-width:none}
-.tab{flex:none;font:inherit;font-size:14px;border:0;border-bottom:2px solid transparent;background:none;color:var(--muted);padding:14px 0 12px;cursor:pointer;display:flex;align-items:center;gap:7px}
-.tab i{font-style:normal;font-size:12px;font-weight:500;color:var(--muted)}
-.tab .dot{width:8px;height:8px;border-radius:50%;background:var(--c)}
-.tab:hover{color:var(--ink)}
-.tab.on{color:var(--ink);border-bottom-color:var(--c,var(--ink))}
+.tabs .wrap{max-width:1320px;display:flex;gap:0;overflow-x:auto;scrollbar-width:none}
+.tabs .wrap::-webkit-scrollbar{display:none}
+.tab{flex:1 1 0;min-width:0;font:inherit;text-align:left;border:0;border-bottom:3px solid transparent;background:none;color:var(--muted);padding:12px 14px 10px;cursor:pointer;display:flex;flex-direction:column;gap:2px}
+.tab b{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--ink);display:flex;align-items:baseline;gap:8px}
+.tab b i{font-family:var(--sans);font-style:normal;font-size:12px;font-weight:400;color:var(--muted)}
+.tab span{font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tab b{white-space:nowrap}
+@media (max-width:900px){.tab{flex:0 0 auto;min-width:130px}}
+.tab:hover{background:var(--sand)}
+.tab.on{background:var(--sand);border-bottom-color:var(--c,var(--ink))}
+.nesteDag{display:flex;justify-content:space-between;gap:16px;margin:40px 0 0;padding-top:20px;border-top:1px solid var(--line);font-size:15px}
+.nesteDag button{all:unset;cursor:pointer;color:var(--terra);font-weight:600}
+.nesteDag button:hover{text-decoration:underline}
+.nesteDag .hoyre{margin-left:auto;text-align:right}
 
 
 .dagblokk{padding:46px 0 10px}
@@ -36,7 +44,6 @@
 .grid img{width:100%;height:auto}
 .grid button:focus-visible{outline:3px solid var(--terra);outline-offset:2px}
 .tomdag{border:1px dashed var(--line);padding:26px;color:var(--muted);font-size:14.5px;line-height:1.6}
-.tomdag code{background:var(--sand);padding:2px 7px;border-radius:6px;font-size:13px}
 
 /* lysboks */
 .lb{position:fixed;inset:0;z-index:2000;background:rgba(10,12,18,.96);display:none;align-items:center;justify-content:center}
@@ -121,10 +128,10 @@
 const tabs=document.getElementById('tabs'), innhold=document.getElementById('innhold');
 const antall=id=>(BILDER[id]||[]).length;
 const KART={'dag-2':1,'dag-3':1,'dag-4':1,'dag-5':1};
-const faner=[{id:'alle',navn:'Alle dager',farge:'var(--ink)'},...DAGER];
+const faner=[...DAGER,{id:'alle',navn:'Alle',tittel:'Alle dager',farge:'var(--ink)'}];
 tabs.innerHTML=faner.map(f=>{
   const n=f.id==='alle'?DAGER.reduce((a,d)=>a+antall(d.id),0):antall(f.id);
-  return `<button class="tab" data-id="${f.id}" style="--c:${f.farge}">${f.id!=='alle'?'<span class="dot"></span>':''}${f.navn}<i>${n}</i></button>`;
+  return `<button class="tab" data-id="${f.id}" title="${f.tittel} · ${n} bilder" style="--c:${f.farge}"><b>${f.navn}</b><span>${f.tittel}</span></button>`;
 }).join('');
 tabs.onclick=e=>{const b=e.target.closest('.tab');if(b)visFane(b.dataset.id,true)};
 
@@ -135,18 +142,30 @@ function blokk(d){
   l.forEach(f=>synlige.push([d.id,f,d.navn]));
   const bilder=l.length
     ? `<div class="grid">${l.map((f,i)=>`<button data-i="${start+i}" aria-label="Åpne bilde ${i+1}"><img loading="lazy" src="${bildeSti(d.id,f,true)}" alt=""></button>`).join('')}</div>`
-    : `<div class="tomdag">Ingen bilder fra ${d.navn.toLowerCase()} ennå. Legg dem i <code>bilder/${d.id}</code> og dobbeltklikk <code>oppdater-bilder.command</code>.</div>`;
+    : `<div class="tomdag">Ingen bilder fra ${d.navn.toLowerCase()}.</div>`;
   return `<div class="dagblokk" style="--c:${d.farge}"><div class="strek"></div><header><h2>${d.navn}</h2><span>${d.tittel}${l.length?` · ${l.length} bilder`:''}</span>${KART[d.id]?`<a href="kart.html#${d.id}">Se dagen på kart →</a>`:''}</header>${bilder}</div>`;
 }
+const FORSTE=DAGER[0].id;
 function visFane(id,scroll){
-  if(!faner.some(f=>f.id===id)) id='alle';
-  tabs.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.id===id));
+  if(!faner.some(f=>f.id===id)) id=FORSTE;
+  const aktiv=tabs.querySelector(`.tab[data-id="${id}"]`);
+  tabs.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b===aktiv));
+  const rad=aktiv.parentElement; if(aktiv.offsetLeft<rad.scrollLeft||aktiv.offsetLeft+aktiv.offsetWidth>rad.scrollLeft+rad.clientWidth) rad.scrollLeft=aktiv.offsetLeft-16;
   synlige=[];
-  innhold.innerHTML=(id==='alle'?DAGER:DAGER.filter(d=>d.id===id)).map(blokk).join('');
-  try{history.replaceState(null,'',id==='alle'?location.pathname:'#'+id)}catch(e){}
-  if(scroll){const y=document.querySelector('.tabs').getBoundingClientRect().top+scrollY-66;if(scrollY>y)scrollTo({top:y,behavior:'smooth'})}
+  let html=(id==='alle'?DAGER:DAGER.filter(d=>d.id===id)).map(blokk).join('');
+  const i=DAGER.findIndex(d=>d.id===id);
+  if(i>=0){
+    const forr=DAGER[i-1], neste=DAGER[i+1];
+    html+=`<nav class="nesteDag">${forr?`<button data-dag="${forr.id}">← ${forr.navn}: ${forr.tittel}</button>`:''}${neste?`<button class="hoyre" data-dag="${neste.id}">${neste.navn}: ${neste.tittel} →</button>`:''}</nav>`;
+  }
+  innhold.innerHTML=html;
+  try{history.replaceState(null,'',id===FORSTE?location.pathname:'#'+id)}catch(e){}
+  if(scroll){const y=document.querySelector('.tabs').getBoundingClientRect().top+scrollY-60;if(scrollY>y)scrollTo({top:y,behavior:'smooth'})}
 }
-innhold.onclick=e=>{const b=e.target.closest('button[data-i]');if(b)apne(+b.dataset.i)};
+innhold.onclick=e=>{
+  const b=e.target.closest('button[data-i]');if(b)return apne(+b.dataset.i);
+  const n=e.target.closest('button[data-dag]');if(n)visFane(n.dataset.dag,true);
+};
 
 // ---------- lysboks ----------
 const lb=document.getElementById('lb'),lbimg=document.getElementById('lbimg');
@@ -161,8 +180,8 @@ addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key
 let tx=null;lb.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
 lb.addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)apne(nr+(dx<0?1:-1));tx=null});
 
-visFane(location.hash.slice(1)||'alle',false);
-addEventListener('hashchange',()=>visFane(location.hash.slice(1)||'alle',false));
+visFane(location.hash.slice(1)||FORSTE,false);
+addEventListener('hashchange',()=>visFane(location.hash.slice(1)||FORSTE,false));
 </script>
 </body>
 </html>

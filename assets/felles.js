@@ -2,7 +2,7 @@
 window.BILDER = window.BILDER || {};
 window.DAGER = [
   {id:'dag-1',  nr:'1',   navn:'Dag 1',   tittel:'Ankomst Marrakesh',        farge:'var(--d1)'},
-  {id:'dag-2',  nr:'2',   navn:'Dag 2',   tittel:'Start vandring → Riad Idaisa', farge:'var(--d2)'},
+  {id:'dag-2',  nr:'2',   navn:'Dag 2',   tittel:'Til Riad Idaisa', farge:'var(--d2)'},
   {id:'dag-3',  nr:'3',   navn:'Dag 3',   tittel:'Opp til Refuge Lepiney',    farge:'var(--d3)'},
   {id:'dag-4',  nr:'4',   navn:'Dag 4',   tittel:'Til Toubkal Base Camp',     farge:'var(--d4)'},
   {id:'dag-5',  nr:'5',   navn:'Dag 5',   tittel:'Toppstøt Jebel Toubkal',    farge:'var(--d5)'},
