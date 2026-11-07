@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Film &amp; bilder · Toubkal 2025</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+.film{background:var(--night);padding:0 0 70px}
+.player{position:relative;border-radius:18px;overflow:hidden;background:#000;aspect-ratio:16/9;box-shadow:0 30px 60px -20px rgba(0,0,0,.6)}
+.player video{width:100%;height:100%;display:block;background:#000}
+.player .mangler{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#c9cdd6;padding:30px;line-height:1.6;background:radial-gradient(circle at 50% 40%,#2a3347,#141a26)}
+.player .mangler b{color:#fff;font-family:var(--serif);font-size:24px;font-weight:600;margin-bottom:6px}
+.player .mangler code{background:rgba(255,255,255,.1);padding:2px 7px;border-radius:6px;color:#fff}
+.player.tom video{visibility:hidden}.player.tom .mangler{display:flex}
+.filmtekst{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:#c9cdd6;font-size:14px;margin-top:16px}
+.filmtekst b{color:#fff;font-family:var(--serif);font-size:20px;font-weight:600}
+
+.tabs{position:sticky;top:66px;z-index:50;background:rgba(251,248,243,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.tabs .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:12px;padding-bottom:12px;scrollbar-width:none}
+.tab{flex:none;font:inherit;font-size:14px;font-weight:600;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:8px 16px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .2s}
+.tab i{font-style:normal;font-size:12px;font-weight:500;color:var(--muted)}
+.tab .dot{width:9px;height:9px;border-radius:50%;background:var(--c)}
+.tab:hover{border-color:var(--c,var(--ink))}
+.tab.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.tab.on i{color:#c9cdd6}
+
+.dagblokk{padding:46px 0 10px}
+.dagblokk header{display:flex;align-items:baseline;gap:16px;margin-bottom:18px;flex-wrap:wrap}
+.dagblokk h2{font-family:var(--serif);font-size:32px;font-weight:600;margin:0}
+.dagblokk header span{color:var(--muted);font-size:15px}
+.dagblokk header a{margin-left:auto;font-size:14px;font-weight:600;color:var(--terra);text-decoration:none}
+.dagblokk .strek{height:4px;width:46px;border-radius:2px;background:var(--c);margin-bottom:12px}
+.grid{columns:4 260px;column-gap:12px}
+.grid button{all:unset;cursor:zoom-in;display:block;margin:0 0 12px;break-inside:avoid;border-radius:12px;overflow:hidden;background:var(--sand-2);position:relative}
+.grid img{width:100%;height:auto;transition:transform .5s,filter .3s}
+.grid button:hover img{transform:scale(1.03);filter:brightness(1.05)}
+.grid button:focus-visible{outline:3px solid var(--terra);outline-offset:2px}
+.tomdag{border:2px dashed var(--line);border-radius:14px;padding:26px;color:var(--muted);font-size:14.5px;line-height:1.6}
+.tomdag code{background:var(--sand);padding:2px 7px;border-radius:6px;font-size:13px}
+
+/* lysboks */
+.lb{position:fixed;inset:0;z-index:2000;background:rgba(10,12,18,.96);display:none;align-items:center;justify-content:center}
+.lb.open{display:flex}
+.lb img{max-width:92vw;max-height:84vh;border-radius:6px;box-shadow:0 20px 60px rgba(0,0,0,.5);user-select:none}
+.lb .bar{position:absolute;left:0;right:0;bottom:0;padding:18px 24px;color:#c9cdd6;font-size:14px;display:flex;justify-content:space-between}
+.lb .bar b{color:#fff}
+.lb .x,.lb .pil{position:absolute;all:unset;cursor:pointer;color:#fff;font-size:28px;width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(255,255,255,.08);transition:background .2s}
+.lb .x:hover,.lb .pil:hover{background:rgba(255,255,255,.18)}
+.lb .x{position:absolute;top:18px;right:18px;font-size:22px}
+.lb .pil{position:absolute;top:50%;transform:translateY(-50%)}
+.lb .forr{left:18px}.lb .neste{right:18px}
+</style>
+</head>
+<body>
+<nav class="nav solid" data-solid="true">
+  <a class="brand" href="index.html"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M2 27 L11 13 L15 18 L21 6 L30 27Z"/><path d="M21 6 V1 L26 3 L21 5Z"/></svg><span>Toubkal 2025</span></a>
+  <ul>
+    <li><a href="index.html">Oversikt</a></li>
+    <li><a href="kart.html">Kart</a></li>
+    <li><a href="galleri.html" class="on">Film &amp; bilder</a></li>
+  </ul>
+</nav>
+
+<div class="pagehead">
+  <svg viewBox="0 0 720 220" aria-hidden="true"><path fill="#fff" d="M0 220 L90 150 L150 175 L240 100 L300 130 L380 40 L420 70 L460 55 L540 130 L600 110 L720 170 V220Z"/></svg>
+  <div class="wrap">
+    <div class="eyebrow">Film &amp; bilder</div>
+    <h1>Sju dager i Atlas</h1>
+    <p>Filmen fra hele turen øverst, og bildene sortert etter dag under. Klikk på et bilde for å se det stort, og bruk piltastene for å bla.</p>
+  </div>
+</div>
+
+<section class="film">
+  <div class="wrap">
+    <div class="player" id="player">
+      <video id="video" controls playsinline preload="metadata">
+        <source src="video/film.mp4" type="video/mp4">
+        <source src="video/film.mov">
+      </video>
+      <div class="mangler">
+        <b>Filmen er ikke lagt inn ennå</b>
+        <div>Legg filmen i mappen <code>video</code> med navnet <code>film.mp4</code> (anbefalt) eller <code>film.mov</code>.<br>
+        Spiller den ikke av? Se «Om filmen» i <code>LES-MEG.txt</code>.</div>
+      </div>
+    </div>
+    <div class="filmtekst"><div><b>Hele turen</b><br>Marrakesh → Atlasfjellene → Jebel Toubkal → Marrakesh</div><div style="align-self:flex-end">Dag 1–7 · september 2025</div></div>
+  </div>
+</section>
+
+<div class="tabs"><div class="wrap" id="tabs"></div></div>
+<div class="wrap" id="innhold" style="padding-bottom:90px"></div>
+
+<div class="zigzag"></div>
+<footer>
+  <div class="wrap">
+    <div>Toubkal · Atlasfjellene · 2025</div>
+    <div><a href="index.html">Oversikt</a> · <a href="kart.html">Kart</a></div>
+  </div>
+</footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true">
+  <button class="x" id="lbx" aria-label="Lukk">✕</button>
+  <button class="pil forr" id="lbf" aria-label="Forrige">‹</button>
+  <img id="lbimg" alt="">
+  <button class="pil neste" id="lbn" aria-label="Neste">›</button>
+  <div class="bar"><span id="lbdag"></span><span id="lbnr"></span></div>
+</div>
+
+<script src="bilder.js"></script>
+<script src="assets/felles.js"></script>
+<script>
+// ---------- video: vis hjelpetekst hvis ingen fil spiller ----------
+(function(){
+  const p=document.getElementById('player'), v=document.getElementById('video');
+  const kilder=[...v.querySelectorAll('source')];
+  let feil=0;
+  kilder.forEach(s=>s.addEventListener('error',()=>{ if(++feil>=kilder.length) p.classList.add('tom'); }));
+  v.addEventListener('error',()=>p.classList.add('tom'));
+  // sikkerhetsnett: noen nettlesere sier ikke fra om manglende fil via error-hendelsen
+  setTimeout(()=>{ if(v.networkState===3 || (v.readyState===0 && v.error)) p.classList.add('tom'); }, 1500);
+})();
+
+// ---------- faner og bilder ----------
+const tabs=document.getElementById('tabs'), innhold=document.getElementById('innhold');
+const antall=id=>(BILDER[id]||[]).length;
+const KART={'dag-2':1,'dag-3':1,'dag-4':1,'dag-5':1};
+const faner=[{id:'alle',navn:'Alle dager',farge:'var(--ink)'},...DAGER];
+tabs.innerHTML=faner.map(f=>{
+  const n=f.id==='alle'?DAGER.reduce((a,d)=>a+antall(d.id),0):antall(f.id);
+  return `<button class="tab" data-id="${f.id}" style="--c:${f.farge}">${f.id!=='alle'?'<span class="dot"></span>':''}${f.navn}<i>${n}</i></button>`;
+}).join('');
+tabs.onclick=e=>{const b=e.target.closest('.tab');if(b)visFane(b.dataset.id,true)};
+
+let synlige=[]; // [mappe, fil, dagnavn] for lysboksen
+function blokk(d){
+  const l=BILDER[d.id]||[];
+  const start=synlige.length;
+  l.forEach(f=>synlige.push([d.id,f,d.navn]));
+  const bilder=l.length
+    ? `<div class="grid">${l.map((f,i)=>`<button data-i="${start+i}" aria-label="Åpne bilde ${i+1}"><img loading="lazy" src="${bildeSti(d.id,f,true)}" alt=""></button>`).join('')}</div>`
+    : `<div class="tomdag">Ingen bilder fra ${d.navn.toLowerCase()} ennå. Legg dem i <code>bilder/${d.id}</code> og dobbeltklikk <code>oppdater-bilder.command</code>.</div>`;
+  return `<div class="dagblokk" style="--c:${d.farge}"><div class="strek"></div><header><h2>${d.navn}</h2><span>${d.tittel}${l.length?` · ${l.length} bilder`:''}</span>${KART[d.id]?`<a href="kart.html#${d.id}">Se dagen på kart →</a>`:''}</header>${bilder}</div>`;
+}
+function visFane(id,scroll){
+  if(!faner.some(f=>f.id===id)) id='alle';
+  tabs.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.id===id));
+  synlige=[];
+  innhold.innerHTML=(id==='alle'?DAGER:DAGER.filter(d=>d.id===id)).map(blokk).join('');
+  try{history.replaceState(null,'',id==='alle'?location.pathname:'#'+id)}catch(e){}
+  if(scroll){const y=document.querySelector('.tabs').getBoundingClientRect().top+scrollY-66;if(scrollY>y)scrollTo({top:y,behavior:'smooth'})}
+}
+innhold.onclick=e=>{const b=e.target.closest('button[data-i]');if(b)apne(+b.dataset.i)};
+
+// ---------- lysboks ----------
+const lb=document.getElementById('lb'),lbimg=document.getElementById('lbimg');
+let nr=0;
+function apne(i){nr=(i+synlige.length)%synlige.length;const [m,f,dag]=synlige[nr];lbimg.src=bildeSti(m,f);document.getElementById('lbdag').innerHTML=`<b>${dag}</b>`;document.getElementById('lbnr').textContent=`${nr+1} / ${synlige.length}`;lb.classList.add('open');document.body.style.overflow='hidden'}
+function lukk(){lb.classList.remove('open');document.body.style.overflow='';lbimg.removeAttribute('src')}
+document.getElementById('lbx').onclick=lukk;
+document.getElementById('lbf').onclick=e=>{e.stopPropagation();apne(nr-1)};
+document.getElementById('lbn').onclick=e=>{e.stopPropagation();apne(nr+1)};
+lb.onclick=e=>{if(e.target===lb)lukk()};
+addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')lukk();if(e.key==='ArrowLeft')apne(nr-1);if(e.key==='ArrowRight')apne(nr+1)});
+let tx=null;lb.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+lb.addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)apne(nr+(dx<0?1:-1));tx=null});
+
+visFane(location.hash.slice(1)||'alle',false);
+addEventListener('hashchange',()=>visFane(location.hash.slice(1)||'alle',false));
+</script>
+</body>
+</html>

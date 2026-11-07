@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kart · Toubkal 2025</title>
+<link rel="stylesheet" href="assets/leaflet/leaflet.css">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+html,body{height:100%;overflow:hidden}
+.app{position:fixed;inset:66px 0 0 0;display:grid;grid-template-columns:350px 1fr;grid-template-rows:1fr 210px}
+aside{grid-row:1/3;background:var(--paper);border-right:1px solid var(--line);overflow:auto;padding:22px 18px}
+aside h1{font-family:var(--serif);font-size:26px;font-weight:600;margin:4px 0 4px}
+aside .sub{color:var(--muted);font-size:13.5px;margin-bottom:16px;line-height:1.5}
+.totals{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.tile{background:var(--sand);border-radius:12px;padding:10px 11px}
+.tile b{display:block;font-family:var(--serif);font-size:19px;font-weight:600;font-variant-numeric:tabular-nums}
+.tile span{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.allbtn{font:inherit;font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:7px 14px;cursor:pointer}
+.allbtn:hover{background:var(--sand)}
+.dh{display:flex;justify-content:space-between;align-items:baseline;margin:18px 10px 6px}
+.dh b{font-family:var(--serif);font-size:17px;font-weight:600}
+.dh span{font-size:12px;color:var(--muted)}
+.stage{display:flex;gap:11px;padding:10px;border-radius:12px;cursor:pointer;border:1px solid transparent}
+.stage:hover{background:var(--sand)}
+.stage.active{background:var(--sand);border-color:var(--line)}
+.sw{width:6px;border-radius:3px;flex:none}
+.stage .t{font-weight:600;font-size:14px;margin-bottom:3px}
+.stage .m{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.stage .g{font-size:12.5px;font-weight:600;color:var(--terra);text-decoration:none;display:inline-block;margin-top:5px}
+.note{font-size:12px;color:var(--muted);margin-top:18px;line-height:1.5;border-top:1px solid var(--line);padding-top:12px}
+#map{grid-column:2;grid-row:1;background:#e8e1d3}
+#prof{grid-column:2;grid-row:2;background:var(--paper);border-top:1px solid var(--line);position:relative}
+#prof svg{width:100%;height:100%;display:block}
+#tip{position:absolute;pointer-events:none;background:var(--ink);color:#fff;font-size:12px;padding:5px 9px;border-radius:7px;display:none;white-space:nowrap;font-variant-numeric:tabular-nums}
+.leaflet-container{font-family:var(--sans)}
+@media (max-width:820px){
+  html,body{overflow:auto}
+  .app{position:static;margin-top:66px;display:block}
+  aside{border-right:0}
+  #map{height:60vh}
+  #prof{height:190px}
+}
+</style>
+</head>
+<body>
+<nav class="nav solid" data-solid="true">
+  <a class="brand" href="index.html"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M2 27 L11 13 L15 18 L21 6 L30 27Z"/><path d="M21 6 V1 L26 3 L21 5Z"/></svg><span>Toubkal 2025</span></a>
+  <ul>
+    <li><a href="index.html">Oversikt</a></li>
+    <li><a href="kart.html" class="on">Kart</a></li>
+    <li><a href="galleri.html">Film &amp; bilder</a></li>
+  </ul>
+</nav>
+
+<div class="app">
+  <aside>
+    <div class="eyebrow">Ruta, slik den ble gått</div>
+    <h1>Fire dager til fots</h1>
+    <div class="sub">GPS-sporet fra turen. Klikk på en dag eller etappe for å zoome inn, og hold musa over høydeprofilen for å se hvor du er på kartet.</div>
+    <div class="totals" id="totals"></div>
+    <button class="allbtn" id="all">Vis hele ruta</button>
+    <div id="stages"></div>
+    <div class="note" id="note"></div>
+  </aside>
+  <div id="map"></div>
+  <div id="prof"><div id="tip"></div></div>
+</div>
+
+<script src="assets/leaflet/leaflet.js"></script>
+<script src="assets/rute.js"></script>
+<script src="assets/felles.js"></script>
+<script>
+// Etappe 1–5 fra GPS-fila. Etappe 6 («In Imlil») er tatt ut.
+const DATA = RUTE.slice(0,5);
+const DAG  = ['dag-2','dag-3','dag-4','dag-5','dag-5'];
+const FARGE= ['#2f6fa3','#5b8a3a','#c2611f','#7b3f93','#b48cc4'];
+const fmtKm=m=>(m/1000).toFixed(1).replace('.',',')+' km';
+const fmtM=m=>Math.round(m).toLocaleString('no')+' m';
+
+let off=0;
+DATA.forEach((s,i)=>{
+  s.color=FARGE[i]; s.day=DAG[i];
+  let up=0,dn=0;
+  for(let k=1;k<s.pts.length;k++){const dz=s.pts[k][2]-s.pts[k-1][2];dz>0?up+=dz:dn-=dz}
+  s.up=up;s.dn=dn;s.len=s.pts[s.pts.length-1][3];
+  s.min=Math.min(...s.pts.map(p=>p[2]));s.max=Math.max(...s.pts.map(p=>p[2]));
+  s.off=off;off+=s.len;
+  s.label=s.name.replace(/^\d+\.\s*/,'').replace('<-->','↔').replace('->','→');
+});
+const TOTAL=off;
+document.getElementById('totals').innerHTML=
+ `<div class="tile"><b>${fmtKm(TOTAL)}</b><span>Distanse</span></div>
+  <div class="tile"><b>${fmtM(DATA.reduce((a,s)=>a+s.up,0))}</b><span>Stigning</span></div>
+  <div class="tile"><b>4167 m</b><span>Høyeste</span></div>`;
+
+// ---------- kart ----------
+const map=L.map('map');
+const base={
+ 'Topografisk':L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',{maxZoom:17,attribution:'© OpenStreetMap-bidragsytere, SRTM | © OpenTopoMap'}),
+ 'Satellitt':L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:18,attribution:'© Esri'}),
+ 'OpenStreetMap':L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap-bidragsytere'})
+};
+base['Topografisk'].addTo(map);
+L.control.layers(base,null,{collapsed:true}).addTo(map);
+L.control.scale({imperial:false}).addTo(map);
+
+const allB=L.latLngBounds([]);
+DATA.forEach((s,i)=>{
+  const ll=s.pts.map(p=>[p[0],p[1]]);
+  s.casing=L.polyline(ll,{color:'#fff',weight:8,opacity:.9}).addTo(map);
+  s.line=L.polyline(ll,{color:s.color,weight:4.5,opacity:.95}).addTo(map);
+  s.line.bindTooltip(`${DAGER.find(d=>d.id===s.day).navn}: ${s.label}`,{sticky:true});
+  s.line.on('click',()=>velg(s.day,i));
+  s.bounds=s.line.getBounds();allB.extend(s.bounds);
+});
+map.fitBounds(allB,{padding:[30,30]});
+const punkt=(p,txt,farge,r)=>L.circleMarker([p[0],p[1]],{radius:r||6,color:'#fff',weight:2.5,fillColor:farge,fillOpacity:1}).addTo(map).bindTooltip(txt);
+punkt(DATA[0].pts[0],'Start','#1e2129',7);
+punkt(DATA[0].pts.at(-1),'Riad Idaisa / Ait Aissa (natt 2)','#b4502a');
+punkt(DATA[1].pts.at(-1),'Refuge Lepiney (natt 3)','#b4502a');
+punkt(DATA[2].pts.at(-1),'Toubkal Base Camp (natt 4)','#b4502a');
+punkt(DATA[4].pts.at(-1),'Imlil, Dar Adrar Hotel (natt 5)','#b4502a');
+const topp=DATA[3].pts.at(-1);
+L.marker([topp[0],topp[1]],{icon:L.divIcon({className:'',iconSize:[0,0],html:'<div style="width:max-content;transform:translate(-50%,-130%);font:600 12px Inter,system-ui;background:#1e2129;color:#fff;padding:4px 8px;border-radius:6px;white-space:nowrap">▲ Jebel Toubkal 4167</div>'})}).addTo(map);
+
+// ---------- liste ----------
+const list=document.getElementById('stages');
+let forrigeDag=null;
+DATA.forEach((s,i)=>{
+  if(s.day!==forrigeDag){
+    forrigeDag=s.day;
+    const ds=DATA.filter(x=>x.day===s.day), d=DAGER.find(d=>d.id===s.day);
+    const h=document.createElement('div');h.className='dh';h.style.cursor='pointer';
+    h.innerHTML=`<b>${d.navn}</b><span>${fmtKm(ds.reduce((a,x)=>a+x.len,0))} · ↑ ${fmtM(ds.reduce((a,x)=>a+x.up,0))}</span>`;
+    h.onclick=()=>velg(s.day,null);list.appendChild(h);
+  }
+  const el=document.createElement('div');el.className='stage';
+  el.innerHTML=`<div class="sw" style="background:${s.color}"></div><div><div class="t">${s.label}</div><div class="m">${fmtKm(s.len)} · ↑ ${fmtM(s.up)} · ↓ ${fmtM(s.dn)}</div>`+
+    (i===DATA.findIndex(x=>x.day===s.day)?`<a class="g" href="galleri.html#${s.day}" onclick="event.stopPropagation()">Bilder fra ${DAGER.find(d=>d.id===s.day).navn.toLowerCase()} →</a>`:'')+`</div>`;
+  el.onclick=()=>velg(s.day,i);s.el=el;list.appendChild(el);
+});
+
+let valgt=null; // liste med indekser som vises
+function velg(dag,idx){
+  valgt = dag===null ? null : (idx===null ? DATA.map((s,i)=>s.day===dag?i:-1).filter(i=>i>=0) : [idx]);
+  DATA.forEach((s,k)=>{
+    const on=!valgt||valgt.includes(k);
+    s.line.setStyle({opacity:on?.95:.22,weight:on?5:3.5});s.casing.setStyle({opacity:on?.9:.18});
+    s.el.classList.toggle('active',!!valgt&&valgt.includes(k));
+    if(on){s.casing.bringToFront();s.line.bringToFront();}
+  });
+  const b=valgt?valgt.reduce((B,k)=>B.extend(DATA[k].bounds),L.latLngBounds([])):allB;
+  map.fitBounds(b,{padding:[34,34]});
+  try{ history.replaceState(null,'',dag?'#'+dag:location.pathname); }catch(e){}
+  tegnProfil();
+}
+document.getElementById('all').onclick=()=>velg(null);
+
+document.getElementById('note').innerHTML=
+ `Kilde: GPS-spor fra Garmin (KML). Høydene i GPS-fila er for lave (toppen ligger på ca. ${fmtM(topp[2])} i dataene mot 4167 moh. i virkeligheten), så profilen viser formen på løypa, ikke eksakte høyder. Sporet ned fra toppen til Base Camp mangler, derfor hopper profilen der.`;
+
+// ---------- høydeprofil ----------
+const prof=document.getElementById('prof'),tip=document.getElementById('tip');
+const hover=L.circleMarker([0,0],{radius:7,color:'#fff',weight:2.5,fillColor:'#1e2129',fillOpacity:1});
+function tegnProfil(){
+  prof.querySelectorAll('svg').forEach(e=>e.remove());
+  const W=prof.clientWidth,H=prof.clientHeight,m={l:54,r:18,t:18,b:30};
+  const segs=valgt?valgt.map(k=>DATA[k]):DATA;
+  const x0=segs[0].off,x1=segs.at(-1).off+segs.at(-1).len;
+  let lo=Math.min(...segs.map(s=>s.min)),hi=Math.max(...segs.map(s=>s.max));
+  const pad=(hi-lo)*.08||20;lo-=pad;hi+=pad;
+  const X=d=>m.l+(d-x0)/(x1-x0)*(W-m.l-m.r),Y=e=>m.t+(hi-e)/(hi-lo)*(H-m.t-m.b);
+  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  let h='';
+  const step=[20,50,100,200,250,500,1000].find(v=>(hi-lo)/v<=5)||1000;
+  for(let e=Math.ceil(lo/step)*step;e<=hi;e+=step)h+=`<line x1="${m.l}" x2="${W-m.r}" y1="${Y(e)}" y2="${Y(e)}" stroke="#eee6d8"/><text x="${m.l-8}" y="${Y(e)+4}" text-anchor="end" font-size="11" fill="#8a847a">${e}</text>`;
+  const kst=[0.5,1,2,5,10].find(v=>(x1-x0)/1000/v<=10)||10;
+  for(let k=0;k*1000<=x1-x0;k+=kst)h+=`<text x="${X(x0+k*1000)}" y="${H-9}" text-anchor="middle" font-size="11" fill="#8a847a">${String(k).replace('.',',')} km</text>`;
+  segs.forEach(s=>{
+    const pts=s.pts.map(p=>`${X(s.off+p[3]).toFixed(1)},${Y(p[2]).toFixed(1)}`).join(' ');
+    h+=`<polygon points="${X(s.off)},${H-m.b} ${pts} ${X(s.off+s.len)},${H-m.b}" fill="${s.color}" fill-opacity=".14"/><polyline points="${pts}" fill="none" stroke="${s.color}" stroke-width="2.2"/>`;
+  });
+  h+=`<line id="vl" y1="${m.t}" y2="${H-m.b}" stroke="#1e2129" style="display:none"/>`;
+  svg.innerHTML=h;prof.appendChild(svg);
+  const vl=svg.querySelector('#vl');
+  svg.onmousemove=ev=>{
+    const r=svg.getBoundingClientRect(),px=ev.clientX-r.left;
+    const d=x0+(px-m.l)/(W-m.l-m.r)*(x1-x0);if(d<x0||d>x1)return;
+    const s=segs.find(s=>d>=s.off&&d<=s.off+s.len)||segs.at(-1);
+    let best=s.pts[0];for(const p of s.pts)if(Math.abs(s.off+p[3]-d)<Math.abs(s.off+best[3]-d))best=p;
+    vl.setAttribute('x1',px);vl.setAttribute('x2',px);vl.style.display='';
+    hover.setLatLng([best[0],best[1]]).addTo(map);
+    tip.style.display='block';
+    tip.textContent=`${fmtKm(s.off+best[3]-x0)} · ${fmtM(best[2])} · ${DAGER.find(d=>d.id===s.day).navn}, ${s.label}`;
+    tip.style.left=Math.max(4,Math.min(px+12,W-tip.offsetWidth-6))+'px';tip.style.top='6px';
+  };
+  svg.onmouseleave=()=>{vl.style.display='none';tip.style.display='none';hover.remove()};
+}
+addEventListener('resize',()=>{map.invalidateSize();tegnProfil()});
+
+// start: les #dag-x fra adressen
+const h0=location.hash.slice(1);
+if(DATA.some(s=>s.day===h0)) velg(h0,null); else {map.fitBounds(allB,{padding:[30,30]});tegnProfil();}
+addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(DATA.some(s=>s.day===h))velg(h,null)});
+</script>
+</body>
+</html>

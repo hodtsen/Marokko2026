@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toubkal 2025 · Atlasfjellene</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a class="brand" href="index.html"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M2 27 L11 13 L15 18 L21 6 L30 27Z"/><path d="M21 6 V1 L26 3 L21 5Z"/></svg><span>Toubkal 2025</span></a>
+  <ul>
+    <li><a href="index.html" class="on">Oversikt</a></li>
+    <li><a href="kart.html">Kart</a></li>
+    <li><a href="galleri.html">Film &amp; bilder</a></li>
+  </ul>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="hero">
+  <svg class="scene" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#1b2140"/>
+        <stop offset=".38" stop-color="#5a3a62"/>
+        <stop offset=".62" stop-color="#c2614a"/>
+        <stop offset=".80" stop-color="#eeaa62"/>
+        <stop offset="1" stop-color="#f7d7a0"/>
+      </linearGradient>
+      <radialGradient id="sun" cx=".5" cy=".5" r=".5">
+        <stop offset="0" stop-color="#fff4d6"/>
+        <stop offset=".45" stop-color="#ffd896" stop-opacity=".9"/>
+        <stop offset="1" stop-color="#ffb46b" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="m1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b67a7a"/><stop offset="1" stop-color="#c98d78"/></linearGradient>
+      <linearGradient id="m2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7d4c5e"/><stop offset="1" stop-color="#8f5a5c"/></linearGradient>
+      <linearGradient id="m3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#53324a"/><stop offset="1" stop-color="#4a2c3e"/></linearGradient>
+      <linearGradient id="m4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b1e2e"/><stop offset="1" stop-color="#1c141f"/></linearGradient>
+      <linearGradient id="snow" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    </defs>
+    <rect width="1600" height="1000" fill="url(#sky)"/>
+    <g fill="#fff" opacity=".7">
+      <circle cx="140" cy="90" r="1.4"/><circle cx="310" cy="160" r="1"/><circle cx="460" cy="70" r="1.6"/><circle cx="620" cy="130" r="1"/><circle cx="820" cy="60" r="1.3"/><circle cx="980" cy="140" r="1"/><circle cx="1150" cy="80" r="1.5"/><circle cx="1320" cy="150" r="1"/><circle cx="1480" cy="70" r="1.3"/><circle cx="1540" cy="190" r="1"/><circle cx="60" cy="220" r="1"/><circle cx="720" cy="210" r="1"/>
+    </g>
+    <circle cx="560" cy="560" r="230" fill="url(#sun)"/>
+    <circle cx="560" cy="560" r="62" fill="#fff1cf" opacity=".95"/>
+    <!-- fjerneste rygg -->
+    <path fill="url(#m1)" d="M0 610 L90 580 L170 600 L260 545 L340 570 L430 520 L520 556 L610 500 L700 540 L780 505 L870 530 L960 470 L1050 515 L1140 480 L1230 520 L1330 470 L1420 505 L1520 470 L1600 495 V1000 H0Z"/>
+    <!-- Toubkal-massivet -->
+    <path fill="url(#m2)" d="M0 700 L110 650 L200 668 L300 610 L380 640 L470 590 L560 625 L660 560 L740 590 L830 520 L900 548 L980 455 L1040 400 L1085 330 L1120 372 L1160 352 L1230 430 L1300 470 L1380 445 L1460 500 L1540 480 L1600 505 V1000 H0Z"/>
+    <path fill="url(#snow)" d="M1040 400 L1085 330 L1120 372 L1160 352 L1200 400 L1170 395 L1150 410 L1120 392 L1100 405 L1080 380 L1062 410Z"/>
+    <!-- flagg/varde på toppen -->
+    <g stroke="#2a1b26" stroke-width="2.4" fill="none"><path d="M1085 330 L1085 300"/></g>
+    <path d="M1086 300 L1104 306 L1086 312Z" fill="#d9a046"/>
+    <!-- nærmere rygg -->
+    <path fill="url(#m3)" d="M0 790 L120 740 L230 760 L330 700 L430 735 L520 690 L610 720 L700 665 L790 700 L880 650 L980 690 L1080 630 L1170 670 L1260 620 L1360 660 L1460 615 L1600 650 V1000 H0Z"/>
+    <!-- forgrunn med sti -->
+    <path fill="url(#m4)" d="M0 880 L140 830 L260 850 L380 800 L520 835 L660 790 L800 828 L940 785 L1080 820 L1220 770 L1360 805 L1480 770 L1600 790 V1000 H0Z"/>
+    <path d="M300 1000 C 420 930, 560 900, 700 880 S 980 840, 1080 820" fill="none" stroke="#d9a046" stroke-width="2.5" stroke-dasharray="2 9" stroke-linecap="round" opacity=".85"/>
+  </svg>
+  <div class="shade" style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(15,10,20,.55) 100%)"></div>
+
+  <div class="content wrap">
+    <h1><small>Atlasfjellene, Marokko · september 2025</small>Toubkal</h1>
+    <div class="meta">
+      <div><b>4167 moh.</b>Nord-Afrikas høyeste topp</div>
+      <div><b>7 dager</b>Marrakesh tur–retur</div>
+      <div><b>ca. 56 km</b>til fots over fire dager</div>
+    </div>
+    <div class="cta">
+      <a class="btn" href="kart.html">Utforsk ruta på kart →</a>
+      <a class="btn ghost" href="galleri.html">Se film og bilder</a>
+    </div>
+  </div>
+  <div class="scroll">Scroll ↓</div>
+</header>
+
+<!-- ================= OM TUREN ================= -->
+<section class="pattern" id="om">
+  <div class="wrap">
+    <div class="eyebrow">Turen</div>
+    <h2 class="title">Fra Marrakesh til taket av Nord-Afrika</h2>
+    <p class="lead">Sju dager, med fire dager til fots gjennom Atlasfjellene: fra landsbyene i lavlandet, via fjellhyttene Refuge Lepiney og Toubkal Base Camp, til toppstøtet på Jebel Toubkal (4167 moh.) og ned igjen til Imlil. Turen startet og sluttet i Marrakesh.</p>
+
+    <div class="stats">
+      <div><b>7</b><span>dager totalt</span></div>
+      <div><b>4</b><span>vandredager</span></div>
+      <div><b>~56 km</b><span>planlagt distanse</span></div>
+      <div><b>~3700 m</b><span>samlet stigning</span></div>
+      <div><b>4167</b><span>moh. på toppen</span></div>
+    </div>
+
+    <div class="altchart">
+      <div class="eyebrow" style="padding:0 6px 4px">Høyde underveis · overnattinger og topp</div>
+      <svg id="alt" viewBox="0 0 1000 300" role="img" aria-label="Høydeprofil for overnattingene på turen"></svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DAG FOR DAG ================= -->
+<section id="dager">
+  <div class="wrap">
+    <div class="eyebrow">Dag for dag</div>
+    <h2 class="title">Reiseplanen</h2>
+    <p class="lead">Tider og distanser er fra reiseplanen. Klikk deg videre til kartet for å se hvordan ruta faktisk ble gått, eller til bildene fra hver dag.</p>
+
+    <div class="days">
+      <article class="day" style="--c:var(--d1)">
+        <div class="num">Dag<b>1</b></div>
+        <div>
+          <h3>Ankomst Marrakesh</h3>
+          <p>Landing i Marrakesh og innsjekk på Riad Assia.</p>
+          <div class="chips"><span class="chip">Overnatting: Riad Assia</span></div>
+          <div class="links"><a href="galleri.html#dag-1">Bilder →</a></div>
+        </div>
+      </article>
+
+      <article class="day" style="--c:var(--d2)">
+        <div class="num">Dag<b>2</b></div>
+        <div>
+          <h3>Vandringen starter</h3>
+          <p>Første etappe inn i fjellene, fram til Riad Idaisa på 1800 moh.</p>
+          <div class="chips"><span class="chip c">ca. 5–6 t</span><span class="chip c">11 km</span><span class="chip c">↑ 750 m</span><span class="chip c">↓ 550 m</span><span class="chip">Overnatting: Riad Idaisa · 1800 moh.</span></div>
+          <div class="links"><a href="kart.html#dag-2">Se på kart →</a><a href="galleri.html#dag-2">Bilder →</a></div>
+        </div>
+      </article>
+
+      <article class="day" style="--c:var(--d3)">
+        <div class="num">Dag<b>3</b></div>
+        <div>
+          <h3>Opp til Refuge Lepiney</h3>
+          <p>Stort sett bare oppover, til fjellhytta Refuge Lepiney på rundt 3000 moh.</p>
+          <div class="chips"><span class="chip c">ca. 5–6 t</span><span class="chip c">11 km</span><span class="chip c">↑ 1200 m</span><span class="chip">Overnatting: Refuge Lepiney · ca. 3000 moh.</span></div>
+          <div class="links"><a href="kart.html#dag-3">Se på kart →</a><a href="galleri.html#dag-3">Bilder →</a></div>
+        </div>
+      </article>
+
+      <article class="day" style="--c:var(--d4)">
+        <div class="num">Dag<b>4</b></div>
+        <div>
+          <h3>Videre til Toubkal Base Camp</h3>
+          <p>En lang dag i høyden, fram til basecampen under Toubkal på 3200 moh.</p>
+          <div class="chips"><span class="chip c">ca. 7 t</span><span class="chip c">14 km</span><span class="chip c">↑ 750 m</span><span class="chip c">↓ 500 m</span><span class="chip">Overnatting: Toubkal Base Camp · 3200 moh.</span></div>
+          <div class="links"><a href="kart.html#dag-4">Se på kart →</a><a href="galleri.html#dag-4">Bilder →</a></div>
+        </div>
+      </article>
+
+      <article class="day" style="--c:var(--d5)">
+        <div class="num">Dag<b>5</b></div>
+        <div>
+          <h3>Toppstøt mot Jebel Toubkal</h3>
+          <p>Turens høydepunkt, bokstavelig talt: opp til 4167 moh., og så hele veien ned til Imlil på rundt 1750 moh.</p>
+          <div class="chips"><span class="chip c">ca. 10–11 t</span><span class="chip c">20 km</span><span class="chip c">↑ 1000 m</span><span class="chip c">↓ 2400 m</span><span class="chip">Overnatting: Dar Adrar Hotel, Imlil · ca. 1750 moh.</span></div>
+          <div class="links"><a href="kart.html#dag-5">Se på kart →</a><a href="galleri.html#dag-5">Bilder →</a></div>
+        </div>
+      </article>
+
+      <article class="day" style="--c:var(--d6)">
+        <div class="num">Dag<b>6–7</b></div>
+        <div>
+          <h3>Tilbake i Marrakesh</h3>
+          <p>Hvile, souker og riad-liv før hjemreise.</p>
+          <div class="chips"><span class="chip">Overnatting: Riad Assia</span></div>
+          <div class="links"><a href="galleri.html#dag-6-7">Bilder →</a></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BILDER ================= -->
+<section class="pattern" id="glimt">
+  <div class="wrap">
+    <div class="eyebrow">Glimt fra turen</div>
+    <h2 class="title">Bilder</h2>
+    <div id="strip"></div>
+    <p style="margin-top:28px"><a class="btn" href="galleri.html">Alle bilder og filmen →</a></p>
+  </div>
+</section>
+
+<!-- ================= PRAKTISK ================= -->
+<section id="praktisk">
+  <div class="wrap">
+    <div class="eyebrow">Praktisk</div>
+    <h2 class="title">Overnatting og nøkkeltall</h2>
+    <div class="info">
+      <div class="card">
+        <h4>Overnattinger</h4>
+        <ul>
+          <li><span>Dag 1 · Riad Assia</span><span>Marrakesh</span></li>
+          <li><span>Dag 2 · Riad Idaisa</span><span>1800 moh.</span></li>
+          <li><span>Dag 3 · Refuge Lepiney</span><span>ca. 3000 moh.</span></li>
+          <li><span>Dag 4 · Toubkal Base Camp</span><span>3200 moh.</span></li>
+          <li><span>Dag 5 · Dar Adrar Hotel</span><span>Imlil, ca. 1750 moh.</span></li>
+          <li><span>Dag 6–7 · Riad Assia</span><span>Marrakesh</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Vandredagene</h4>
+        <ul>
+          <li><span>Dag 2</span><span>11 km · ↑ 750 · ca. 5–6 t</span></li>
+          <li><span>Dag 3</span><span>11 km · ↑ 1200 · ca. 5–6 t</span></li>
+          <li><span>Dag 4</span><span>14 km · ↑ 750 · ca. 7 t</span></li>
+          <li><span>Dag 5</span><span>20 km · ↑ 1000 · ca. 10–11 t</span></li>
+          <li><span><b>Totalt</b></span><span><b>56 km · ↑ 3700 m</b></span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Høydepunkter</h4>
+        <ul>
+          <li><span>Høyeste punkt</span><span>Jebel Toubkal, 4167 moh.</span></li>
+          <li><span>Høyeste overnatting</span><span>Base Camp, 3200 moh.</span></li>
+          <li><span>Lengste dag</span><span>Dag 5, ca. 10–11 t</span></li>
+          <li><span>Største nedstigning</span><span>Dag 5, ↓ 2400 m</span></li>
+          <li><span>Start og mål</span><span>Marrakesh</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="zigzag"></div>
+<footer>
+  <div class="wrap">
+    <div>Toubkal · Atlasfjellene · 2025</div>
+    <div><a href="kart.html">Kart</a> · <a href="galleri.html">Film &amp; bilder</a></div>
+  </div>
+</footer>
+
+<script src="bilder.js"></script>
+<script src="assets/felles.js"></script>
+<script>
+// ---------- forsidebilde: bruker første bilde i bilder/forside hvis det finnes ----------
+(function(){
+  const f = (BILDER.forside||[])[0];
+  if(!f) return;
+  const hero = document.getElementById('hero');
+  const img = new Image();
+  img.className = 'photo'; img.alt = ''; img.src = bildeSti('forside', f);
+  img.onload = () => {
+    hero.querySelector('svg.scene').style.display = 'none';
+    hero.querySelector('.shade').remove();
+    const sh = document.createElement('div'); sh.className = 'shade';
+    hero.prepend(sh); hero.prepend(img);
+  };
+})();
+
+// ---------- bilde-stripe ----------
+(function(){
+  const el = document.getElementById('strip');
+  const valg = [];
+  (BILDER.forside||[]).slice(1).forEach(f => valg.push(['forside', f]));
+  // fyll på med det første bildet fra hver dag
+  DAGER.forEach(d => { const l = BILDER[d.id]||[]; if(l[0]) valg.push([d.id, l[0]]); });
+  DAGER.forEach(d => { const l = BILDER[d.id]||[]; if(l[1]) valg.push([d.id, l[1]]); });
+  const vis = valg.slice(0, 6);
+  if(!vis.length){
+    el.innerHTML = '<div class="empty">Ingen bilder ennå. Legg bilder i mappene <code>bilder/forside</code> og <code>bilder/dag-1</code> … <code>bilder/dag-6-7</code>,<br>og dobbeltklikk <code>oppdater-bilder.command</code>. Det første bildet i <code>bilder/forside</code> blir toppbildet på denne siden.</div>';
+    return;
+  }
+  el.className = 'strip';
+  el.innerHTML = vis.map(([m,f]) => `<a href="galleri.html#${m==='forside'?'alle':m}"><img loading="lazy" src="${bildeSti(m,f,true)}" alt=""></a>`).join('');
+})();
+
+// ---------- høydeprofil for overnattinger ----------
+(function(){
+  const P = [
+    {x:0,   h:470,  l:'Marrakesh',        d:'Dag 1'},
+    {x:1,   h:1800, l:'Riad Idaisa',      d:'Dag 2'},
+    {x:2,   h:3000, l:'Refuge Lepiney',   d:'Dag 3'},
+    {x:3,   h:3200, l:'Base Camp',        d:'Dag 4'},
+    {x:3.5, h:4167, l:'Jebel Toubkal',    d:'Topp', top:true},
+    {x:4,   h:1750, l:'Imlil',            d:'Dag 5'},
+    {x:5,   h:470,  l:'Marrakesh',        d:'Dag 6–7'}
+  ];
+  const W=1000,H=300,m={l:20,r:20,t:40,b:46};
+  const X=x=>m.l+x/5*(W-m.l-m.r), Y=h=>m.t+(4400-h)/4400*(H-m.t-m.b);
+  // glatt kurve (Catmull-Rom → Bezier)
+  const pts=P.map(p=>[X(p.x),Y(p.h)]);
+  let d=`M${pts[0]}`;
+  for(let i=0;i<pts.length-1;i++){
+    const p0=pts[i-1]||pts[i],p1=pts[i],p2=pts[i+1],p3=pts[i+2]||p2,t=.18;
+    d+=` C${p1[0]+(p2[0]-p0[0])*t},${p1[1]+(p2[1]-p0[1])*t} ${p2[0]-(p3[0]-p1[0])*t},${p2[1]-(p3[1]-p1[1])*t} ${p2[0]},${p2[1]}`;
+  }
+  let s=`<defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b4502a" stop-opacity=".35"/><stop offset="1" stop-color="#b4502a" stop-opacity="0"/></linearGradient></defs>`;
+  [1000,2000,3000,4000].forEach(h=>s+=`<line x1="${m.l}" x2="${W-m.r}" y1="${Y(h)}" y2="${Y(h)}" stroke="#e2d8c8" stroke-dasharray="3 5"/><text x="${W-m.r}" y="${Y(h)-5}" text-anchor="end" font-size="11" fill="#9b948a">${h} m</text>`);
+  s+=`<path d="${d} L${X(5)},${H-m.b} L${X(0)},${H-m.b}Z" fill="url(#ag)"/>`;
+  s+=`<path d="${d}" fill="none" stroke="#b4502a" stroke-width="3" stroke-linecap="round"/>`;
+  P.forEach((p,i)=>{
+    const x=X(p.x),y=Y(p.h);
+    s+=`<circle cx="${x}" cy="${y}" r="${p.top?7:5.5}" fill="${p.top?'#d9a046':'#fbf8f3'}" stroke="#b4502a" stroke-width="2.5"/>`;
+    const anchor=i===0?'start':i===P.length-1?'end':'middle';
+    const ende = anchor!=='middle';
+    const hTxt = (p.h===470?'ca. ':'')+p.h+' moh.';
+    s+=`<text x="${x}" y="${y-(ende?34:14)}" text-anchor="${anchor}" font-family="Fraunces,Georgia,serif" font-size="${p.top?17:14}" font-weight="600" fill="#1e2129">${p.l}</text>`;
+    if(!p.top) s+=`<text x="${x}" y="${H-m.b+22}" text-anchor="${anchor}" font-size="12" font-weight="600" fill="#6f6a62" letter-spacing="1">${p.d.toUpperCase()}</text>`;
+    s+=`<text x="${x}" y="${p.top?y-34:ende?y-18:y+22}" text-anchor="${anchor}" font-size="11.5" fill="#6f6a62">${hTxt}</text>`;
+  });
+  document.getElementById('alt').innerHTML=s;
+})();
+</script>
+</body>
+</html>
