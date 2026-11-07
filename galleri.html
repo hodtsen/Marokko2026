@@ -6,37 +6,36 @@
 <title>Film &amp; bilder · Toubkal 2025</title>
 <link rel="stylesheet" href="assets/style.css">
 <style>
-.film{background:var(--night);padding:0 0 70px}
-.player{position:relative;border-radius:18px;overflow:hidden;background:#000;aspect-ratio:16/9;box-shadow:0 30px 60px -20px rgba(0,0,0,.6)}
+.film{background:var(--sand);padding:0 0 56px}
+.player{position:relative;overflow:hidden;background:#000;aspect-ratio:16/9}
 .player video{width:100%;height:100%;display:block;background:#000}
 .player .mangler{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#c9cdd6;padding:30px;line-height:1.6;background:radial-gradient(circle at 50% 40%,#2a3347,#141a26)}
 .player .mangler b{color:#fff;font-family:var(--serif);font-size:24px;font-weight:600;margin-bottom:6px}
 .player .mangler code{background:rgba(255,255,255,.1);padding:2px 7px;border-radius:6px;color:#fff}
 .player.tom video{visibility:hidden}.player.tom .mangler{display:flex}
-.filmtekst{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:#c9cdd6;font-size:14px;margin-top:16px}
-.filmtekst b{color:#fff;font-family:var(--serif);font-size:20px;font-weight:600}
+.filmtekst{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--muted);font-size:14px;margin-top:16px}
+.filmtekst b{color:var(--ink);font-family:var(--serif);font-size:20px;font-weight:600}
 
-.tabs{position:sticky;top:66px;z-index:50;background:rgba(251,248,243,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.tabs .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:12px;padding-bottom:12px;scrollbar-width:none}
-.tab{flex:none;font:inherit;font-size:14px;font-weight:600;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:8px 16px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .2s}
+.tabs{position:sticky;top:60px;z-index:50;background:rgba(251,248,243,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.tabs .wrap{display:flex;gap:22px;overflow-x:auto;padding-top:0;padding-bottom:0;scrollbar-width:none}
+.tab{flex:none;font:inherit;font-size:14px;border:0;border-bottom:2px solid transparent;background:none;color:var(--muted);padding:14px 0 12px;cursor:pointer;display:flex;align-items:center;gap:7px}
 .tab i{font-style:normal;font-size:12px;font-weight:500;color:var(--muted)}
-.tab .dot{width:9px;height:9px;border-radius:50%;background:var(--c)}
-.tab:hover{border-color:var(--c,var(--ink))}
-.tab.on{background:var(--ink);border-color:var(--ink);color:#fff}
-.tab.on i{color:#c9cdd6}
+.tab .dot{width:8px;height:8px;border-radius:50%;background:var(--c)}
+.tab:hover{color:var(--ink)}
+.tab.on{color:var(--ink);border-bottom-color:var(--c,var(--ink))}
+
 
 .dagblokk{padding:46px 0 10px}
 .dagblokk header{display:flex;align-items:baseline;gap:16px;margin-bottom:18px;flex-wrap:wrap}
 .dagblokk h2{font-family:var(--serif);font-size:32px;font-weight:600;margin:0}
 .dagblokk header span{color:var(--muted);font-size:15px}
 .dagblokk header a{margin-left:auto;font-size:14px;font-weight:600;color:var(--terra);text-decoration:none}
-.dagblokk .strek{height:4px;width:46px;border-radius:2px;background:var(--c);margin-bottom:12px}
-.grid{columns:4 260px;column-gap:12px}
-.grid button{all:unset;cursor:zoom-in;display:block;margin:0 0 12px;break-inside:avoid;border-radius:12px;overflow:hidden;background:var(--sand-2);position:relative}
-.grid img{width:100%;height:auto;transition:transform .5s,filter .3s}
-.grid button:hover img{transform:scale(1.03);filter:brightness(1.05)}
+.dagblokk .strek{display:none}
+.grid{columns:4 260px;column-gap:6px}
+.grid button{all:unset;cursor:zoom-in;display:block;margin:0 0 6px;break-inside:avoid;overflow:hidden;background:var(--sand-2);position:relative}
+.grid img{width:100%;height:auto}
 .grid button:focus-visible{outline:3px solid var(--terra);outline-offset:2px}
-.tomdag{border:2px dashed var(--line);border-radius:14px;padding:26px;color:var(--muted);font-size:14.5px;line-height:1.6}
+.tomdag{border:1px dashed var(--line);padding:26px;color:var(--muted);font-size:14.5px;line-height:1.6}
 .tomdag code{background:var(--sand);padding:2px 7px;border-radius:6px;font-size:13px}
 
 /* lysboks */
@@ -54,7 +53,7 @@
 </head>
 <body>
 <nav class="nav solid" data-solid="true">
-  <a class="brand" href="index.html"><svg viewBox="0 0 32 32" fill="currentColor"><path d="M2 27 L11 13 L15 18 L21 6 L30 27Z"/><path d="M21 6 V1 L26 3 L21 5Z"/></svg><span>Toubkal 2025</span></a>
+  <a class="brand" href="index.html">Toubkal 2025</a>
   <ul>
     <li><a href="index.html">Oversikt</a></li>
     <li><a href="kart.html">Kart</a></li>
@@ -62,12 +61,10 @@
   </ul>
 </nav>
 
-<div class="pagehead">
-  <svg viewBox="0 0 720 220" aria-hidden="true"><path fill="#fff" d="M0 220 L90 150 L150 175 L240 100 L300 130 L380 40 L420 70 L460 55 L540 130 L600 110 L720 170 V220Z"/></svg>
+<div class="pagehead" style="border-bottom:0;padding-bottom:28px">
   <div class="wrap">
-    <div class="eyebrow">Film &amp; bilder</div>
     <h1>Sju dager i Atlas</h1>
-    <p>Filmen fra hele turen øverst, og bildene sortert etter dag under. Klikk på et bilde for å se det stort, og bruk piltastene for å bla.</p>
+    <p>Filmen fra hele turen, og bildene sortert etter dag.</p>
   </div>
 </div>
 
@@ -91,7 +88,6 @@
 <div class="tabs"><div class="wrap" id="tabs"></div></div>
 <div class="wrap" id="innhold" style="padding-bottom:90px"></div>
 
-<div class="zigzag"></div>
 <footer>
   <div class="wrap">
     <div>Toubkal · Atlasfjellene · 2025</div>
