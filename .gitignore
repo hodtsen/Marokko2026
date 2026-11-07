@@ -1,2 +1,6 @@
 video/
-.DS_store
+.DS_Store
+
+# Originalbildene holdes utenfor repoet – bare nettversjonene i bilder/_web lastes opp
+bilder/*
+!bilder/_web/
